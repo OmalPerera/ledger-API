@@ -1,0 +1,33 @@
+{
+  "name": "ledger-api",
+  "version": "1.0.0",
+  "description": "Ledger Rest API with Node.js",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-jwt": "^6.0.0",
+    "http": "0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.7",
+    "swagger-jsdoc": "^7.0.0-rc.6",
+    "swagger-model-validator": "^3.0.20",
+    "swagger-ui-express": "^4.1.6",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node bin/www.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://omalperera@github.com/OmalPerera/ledger-API.git"
+  },
+  "author": "Omal",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OmalPerera/ledger-API/issues"
+  },
+  "homepage": "https://github.com/OmalPerera/ledger-API#readme"
+}
