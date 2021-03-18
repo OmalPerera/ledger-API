@@ -41,18 +41,15 @@ const options = {
 			title: 'ledger-api',
 			version: '1.0.0',
 			description: 'ledger-api REST API with Swagger doc',
-			contact: {
-				email: 'omalperera8@gmail.com',
-			},
 		},
 		tags: [
 			{
-				name: 'users',
-				description: 'Users API',
+				name: 'Auth',
+				description: 'Authentication APIs',
 			},
 			{
-				name: 'Auth',
-				description: 'Authentication apis',
+				name: 'Lease',
+				description: 'Lease API',
 			},
 		],
 		schemes: ['http'],
