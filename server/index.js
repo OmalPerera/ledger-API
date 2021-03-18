@@ -22,7 +22,7 @@ app.use('/api/docs', swagger.router);
 app.use((req, res, next) => {
     req.identifier = uuidv4();
     const logString = `new request [${req.identifier}] ${req.url} ${req.headers['user-agent']} ${JSON.stringify(req.body)}`;
-    console.log(logString, 'info');
+    //console.log(logString, 'info');
     next();
 });
 
