@@ -1,17 +1,9 @@
 const jwt = require('jsonwebtoken');
 const _ = require('lodash');
 const config = require('../config/appconfig');
-const RequestHandler = require('../utils/RequestHandler');
+const RequestHandler = require('./requestHandler');
 
 const requestHandler = new RequestHandler();
-function getTokenFromHeader(req) {
-	if ((req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Token')
-		|| (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer')) {
-		return req.headers.authorization.split(' ')[1];
-	}
-
-	return null;
-}
 
 function verifyToken(req, res, next) {
 
@@ -45,4 +37,4 @@ function verifyToken(req, res, next) {
 }
 
 
-module.exports = { getJwtToken: getTokenFromHeader, isAuthunticated: verifyToken };
+module.exports = { isAuthunticated: verifyToken };

@@ -1,17 +1,16 @@
 const Joi = require('joi');
 const jwt = require('jsonwebtoken');
-const RequestHandler = require('../utils/RequestHandler');
-const BaseController = require('../controllers/BaseController');
+const RequestHandler = require('../utils/requestHandler');
+const BaseController = require('./baseController');
 const config = require('../config/appconfig');
 
 const requestHandler = new RequestHandler();
-const tokenList = {};
 
 /* dummy user data */
 const DUMMY_USER = {
 	id: 1,
 	email: 'admin@company.com',
-	password: 'pass@123'
+	password: '5f4dcc3b5aa765d61d8327deb882cf99'
 }
 
 class AuthController extends BaseController {
@@ -41,18 +40,7 @@ class AuthController extends BaseController {
 			req.params.id = DUMMY_USER.id;
 			const token = jwt.sign({ DUMMY_USER }, config.auth.jwt_secret, { expiresIn: config.auth.jwt_expiresin, algorithm: 'HS256' });
 
-			const refreshToken = jwt.sign({
-				DUMMY_USER,
-			}, config.auth.refresh_token_secret, {
-				expiresIn: config.auth.refresh_token_expiresin,
-			});
-			const response = {
-				status: 'Logged in',
-				token,
-				refreshToken,
-			};
-			tokenList[refreshToken] = response;
-			requestHandler.sendSuccess(res, 'User logged in Successfully')({ token, refreshToken });
+			requestHandler.sendSuccess(res, 'User logged in Successfully')({ token });
 		} catch (error) {
 			requestHandler.sendError(req, res, error);
 		}

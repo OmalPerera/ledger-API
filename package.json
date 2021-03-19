@@ -14,15 +14,16 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
-    "nodemon": "^2.0.7",
     "swagger-jsdoc": "6.0.0",
     "swagger-model-validator": "^3.0.20",
-    "swagger-ui-express": "^4.1.6",
-    "uuid": "^8.3.2"
+    "swagger-ui-express": "^4.1.6"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "^26.6.3",
+    "nodemon": "^2.0.7"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node bin/www.js"
   },
   "repository": {
@@ -34,5 +35,9 @@
   "bugs": {
     "url": "https://github.com/OmalPerera/ledger-API/issues"
   },
-  "homepage": "https://github.com/OmalPerera/ledger-API#readme"
+  "homepage": "https://github.com/OmalPerera/ledger-API#readme",
+  "jest": {
+    "testEnvironment": "node",
+    "verbose": true
+  }
 }
