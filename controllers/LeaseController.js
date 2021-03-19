@@ -1,7 +1,7 @@
 const Joi = require('joi');
-const BaseController = require('./BaseController');
-const RequestHandler = require('../utils/RequestHandler');
-const LedgerLogic = require('../business-logic/LedgerLogic');
+const BaseController = require('./baseController');
+const RequestHandler = require('../utils/requestHandler');
+const LedgerLogic = require('../business-logic/ledgerLogic');
 
 const requestHandler = new RequestHandler();
 const FREQUENCY_LIST = ['WEEKLY', 'FORTNIGHTLY', 'MONTHLY'];

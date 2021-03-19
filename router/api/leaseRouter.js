@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const leaseController = require('../../controllers/LeaseController');
+const leaseController = require('../../controllers/leaseController');
 const auth = require('../../utils/auth');
 /**
    * @swagger
@@ -14,15 +14,19 @@ const auth = require('../../utils/auth');
    *     properties:
    *       startDate:
    *         type: string
+   *         example: 2021-03-16T00:00:00Z
    *       endDate:
    *         type: string
+   *         example: 2021-05-26T00:00:00Z
    *       frequency:
    *         type: string
+   *         example: WEEKLY | FORTNIGHTLY | MONTHLY 
    *       weeklyRent:
    *         type: number
    *         example: 9000
    *       timezone:
    *         type: string
+   *         example: Australia/Victoria
    */
 
 
@@ -78,7 +82,7 @@ const auth = require('../../utils/auth');
  */
 router.get(
    '/:startDate?:endDate?:frequency?:weeklyRent?:timezone?',
-   //auth.isAuthunticated,
+   auth.isAuthunticated,
    leaseController.generateLedger
 );
 

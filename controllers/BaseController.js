@@ -1,4 +1,4 @@
-const RequestHandler = require('../utils/RequestHandler');
+const RequestHandler = require('../utils/requestHandler');
 
 
 const errHandler = new RequestHandler();

@@ -1,7 +1,11 @@
 const moment = require('moment');
 
 function ammendToBreakdown(breakDownArray, startDate, endDate, amount) {
-    breakDownArray.push({ startDate, endDate, amount });
+    breakDownArray.push({
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+        amount: formatLeaseValue(amount)
+    });
 }
 
 function formatLeaseValue(amount) {
@@ -9,6 +13,17 @@ function formatLeaseValue(amount) {
         return parseFloat(amount.toFixed(2));
     }
     return amount
+}
+
+/**
+ * Calculate basic amount to be paid for line item 
+ */
+function basePayment(weeklyRent, frequency) {
+    if (frequency === 'monthly') {
+        return (weeklyRent / 7) * (365 / 12);
+    } else {
+        return (weeklyRent / 7 * frequency);
+    }
 }
 
 
@@ -21,30 +36,48 @@ function formatLeaseValue(amount) {
 function splitAccordingToFrequency(leaseData, frequency) {
 
     let leaseBeakdown = [];
-    let lastStartDate;
-    let lastEndDate;
+    let prevStartDate;
+    let prevEndDate;
 
     const startDateObj = moment(leaseData.startDate);
     const endDateObj = moment(leaseData.endDate);
-    const regularPayment = leaseData.weeklyRent * (frequency / 7);
-    let diff = endDateObj.diff(startDateObj, 'days');
 
-    while (diff >= frequency - 1) {
+    if (frequency === 'monthly') {
+        let diff = endDateObj.diff(startDateObj, 'months');
+        const regularPayment = basePayment(leaseData.weeklyRent, 'monthly');
 
-        if (leaseBeakdown.length === 0) {
-            lastStartDate = startDateObj;
+        for (i = 0; i < diff; i++) {
+            prevStartDate = moment(startDateObj).add(i, 'M');
+            prevEndDate = moment(startDateObj).add(i + 1, 'M').subtract(1, 'days');
+            ammendToBreakdown(leaseBeakdown, prevStartDate, prevEndDate, regularPayment);
         }
-        else {
-            lastStartDate = moment(lastEndDate).add(1, 'days');
+
+        diff = endDateObj.diff(prevEndDate, 'days');
+        if (diff > 0) {
+            ammendToBreakdown(leaseBeakdown, prevEndDate.add(1, 'days'), endDateObj, (leaseData.weeklyRent / 7 * diff));
         }
 
-        lastEndDate = moment(lastStartDate).add(frequency - 1, 'days');
-        ammendToBreakdown(leaseBeakdown, lastStartDate.toISOString(), lastEndDate.toISOString(), formatLeaseValue(regularPayment))
-        diff = endDateObj.diff(lastEndDate, 'days');
-    }
+    } else {
+        let diff = endDateObj.diff(startDateObj, 'days');
+        const regularPayment = basePayment(leaseData.weeklyRent, frequency)
 
-    if (diff > 0) {
-        ammendToBreakdown(leaseBeakdown, lastEndDate.add(1, 'days').toISOString(), endDateObj.toISOString(), formatLeaseValue(((diff / frequency) * regularPayment)));
+        while (diff >= frequency - 1) {
+
+            if (leaseBeakdown.length === 0) {
+                prevStartDate = startDateObj;
+            }
+            else {
+                prevStartDate = moment(prevEndDate).add(1, 'days');
+            }
+
+            prevEndDate = moment(prevStartDate).add(frequency - 1, 'days');
+            ammendToBreakdown(leaseBeakdown, prevStartDate, prevEndDate, regularPayment)
+            diff = endDateObj.diff(prevEndDate, 'days');
+        }
+
+        if (diff > 0) {
+            ammendToBreakdown(leaseBeakdown, prevEndDate.add(1, 'days'), endDateObj, ((diff / frequency) * regularPayment));
+        }
     }
 
     return leaseBeakdown;
@@ -53,7 +86,7 @@ function splitAccordingToFrequency(leaseData, frequency) {
 
 
 /**
- * 
+ * Initiate ledger Calculation depends on Payment frequency
  * @param {*} FREQUENCY_LIST 
  * @param {*} leaseData 
  */
@@ -68,11 +101,11 @@ function generateLedger(FREQUENCY_LIST, leaseData) {
         result = splitAccordingToFrequency(leaseData, 14);
     }
     else if (paymentFrequency === FREQUENCY_LIST[2]) {
-        result = splitAccordingToFrequency(leaseData, 30);
+        result = splitAccordingToFrequency(leaseData, 'monthly');
     }
 
     return result;
 }
 
 
-module.exports = { generateLedger };
+module.exports = { generateLedger, basePayment, splitAccordingToFrequency };
