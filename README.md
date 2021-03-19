@@ -27,7 +27,7 @@ npm start
 
 ## Using the service
 
-### 1. Getting Authenticate
+### 1. Getting Authenticated
 - A mock user is hardcoded in the app just to mimic the auth process.
 - You can obtain a token by calling http://localhost:3000/api/v1/login with following payload 
 ** following credentials are just for testing.  
@@ -44,14 +44,17 @@ npm start
 * Once you are authenticated, you can use the service.
 * GET http://localhost:3000/api/v1/lease
 * following information should be provided as **query parameters** to obtain the ledger.
+    * https://i.stack.imgur.com/SOvLq.png
     * `startDate` - ISO String - (Start date of the ledger)
     * `endDate` - ISO String - (end date of the ledger)
     * `frequency` - weekly | 'fortnightly | monthly , as a string 
     * `weeklyRent` - number format - (Payment frequency of the ledger)
-    * `timezone` - string format - (timezone of the property)
+    * `timezone` - string format - (timezone of the property) ** currently not used inside the logic.
 * Sample request in localhost :
     * http://localhost:3000/api/v1/lease?startDate=2021-03-16T00%3A00%3A00Z&endDate=2021-05-26T00%3A00%3A00Z&frequency=WEEKLY&weeklyRent=200&timezone=Australia%2FVictoria
 * Sample responses can be found on swagger doc. 
+    *   https://i.stack.imgur.com/zU1Z8.png
+    *   all dates retuend in ISO formate, so can be customized in frontends according to client locale/culture.
 &nbsp;
 
 ## Testing

@@ -15,7 +15,7 @@ class LeaseController extends BaseController {
 
 			const schema = {
 				startDate: Joi.date().iso(),
-				endDate: Joi.date().iso(),
+				endDate: Joi.date().iso().min(Joi.ref('startDate')),
 				frequency: Joi.string().insensitive().valid(...[FREQUENCY_LIST]),
 				weeklyRent: Joi.number().positive(),
 				timezone: Joi.string(),
