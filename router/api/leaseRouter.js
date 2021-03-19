@@ -169,7 +169,7 @@ const auth = require('../../utils/auth');
  */
 router.get(
    '/:startDate?:endDate?:frequency?:weeklyRent?:timezone?',
-   //auth.isAuthunticated,
+   auth.isAuthunticated,
    leaseController.generateLedger
 );
 
