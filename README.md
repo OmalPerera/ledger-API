@@ -70,3 +70,9 @@ npm test
 
 ## License
 MIT
+
+
+### References
+* https://github.com/linnovate/mean/tree/master/server
+* https://github.com/MoathShraim/Nodejs-rest-api-project-structure-Express
+* https://blog.logrocket.com/the-perfect-architecture-flow-for-your-next-node-js-project/
