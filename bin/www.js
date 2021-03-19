@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const http = require('http');
-const app = require('../server/index');
+const app = require('server/index');
 
 const server = http.createServer(app);
 

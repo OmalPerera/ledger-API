@@ -1,8 +1,8 @@
 const Joi = require('joi');
 const jwt = require('jsonwebtoken');
-const RequestHandler = require('../utils/requestHandler');
-const BaseController = require('./baseController');
-const config = require('../config/appconfig');
+const RequestHandler = require('utils/requestHandler');
+const BaseController = require('controllers/baseController');
+const config = require('config/appconfig');
 
 const requestHandler = new RequestHandler();
 

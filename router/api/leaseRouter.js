@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const leaseController = require('../../controllers/leaseController');
-const auth = require('../../utils/auth');
+const leaseController = require('controllers/leaseController');
+const auth = require('utils/auth');
 
 /**
 * @swagger

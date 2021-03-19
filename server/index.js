@@ -1,13 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const config = require('../config/appconfig');
+const config = require('config/appconfig');
 
 const app = express();
 
 app.set('config', config);
 app.use(bodyParser.json());
 
-const swagger = require('../utils/swagger');
+const swagger = require('utils/swagger');
 
 process.on('SIGINT', () => {
     console.log('stopping the server', 'info');
@@ -16,7 +16,7 @@ process.on('SIGINT', () => {
 
 app.set('port', process.env.DEV_APP_PORT);
 app.use('/api/docs', swagger.router);
-app.use(require('../router'));
+app.use(require('router'));
 
 app.use((req, res, next) => {
     const err = new Error('Not Found');

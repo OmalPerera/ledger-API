@@ -8,7 +8,7 @@ const swaggerUi = require('swagger-ui-express');
 const fs = require('fs');
 const path = require('path');
 const _ = require('lodash');
-const config = require('../config/appconfig');
+const config = require('config/appconfig');
 
 const directoryPath = path.join(__dirname, '../router/api');
 const pathes = [];

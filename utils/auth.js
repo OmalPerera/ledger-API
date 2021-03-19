@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const _ = require('lodash');
-const config = require('../config/appconfig');
-const RequestHandler = require('./requestHandler');
+const config = require('config/appconfig');
+const RequestHandler = require('utils/requestHandler');
 
 const requestHandler = new RequestHandler();
 

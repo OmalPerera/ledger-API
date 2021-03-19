@@ -1,4 +1,4 @@
-const { generateLedger, basePayment, splitAccordingToFrequency } = require('../business-logic/ledgerLogic');
+const { generateLedger, basePayment, splitAccordingToFrequency } = require('business-logic/ledgerLogic');
 
 const actualLeaseData = {
     startDate: '2021-03-28T00:00:00Z',
